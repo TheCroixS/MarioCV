@@ -14,6 +14,8 @@
             background-color: #f4f4f9;
             color: #333;
             overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
         }
         .container {
             max-width: 1000px;
@@ -25,6 +27,8 @@
             border-radius: 10px;
             position: relative;
             z-index: 1;
+            border: 3px solid transparent;
+            animation: ledBorder 5s linear infinite;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -43,14 +47,42 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+        @keyframes ledBorder {
+            0% {
+                border-color: #4CAF50;
+                box-shadow: 0 0 5px #4CAF50, 0 0 10px #4CAF50;
+            }
+            25% {
+                border-color: #33A6B8;
+                box-shadow: 0 0 5px #33A6B8, 0 0 10px #33A6B8;
+            }
+            50% {
+                border-color: #2E8B57;
+                box-shadow: 0 0 5px #2E8B57, 0 0 10px #2E8B57;
+            }
+            75% {
+                border-color: #33A6B8;
+                box-shadow: 0 0 5px #33A6B8, 0 0 10px #33A6B8;
+            }
+            100% {
+                border-color: #4CAF50;
+                box-shadow: 0 0 5px #4CAF50, 0 0 10px #4CAF50;
+            }
+        }
         header {
             text-align: center;
             padding: 50px 0;
-            background: url('forest.jpg') no-repeat center center;
+            background: url('forest.webp') no-repeat center center;
             background-size: cover;
             color: #fff;
             border-radius: 10px 10px 0 0;
             position: relative;
+            animation: parallax 20s linear infinite;
+        }
+        @keyframes parallax {
+            0% { background-position: center 0; }
+            50% { background-position: center 50%; }
+            100% { background-position: center 0; }
         }
         header h1 {
             font-family: 'Montserrat', sans-serif;
@@ -99,10 +131,26 @@
             background-color: #fff;
             transition: background-color 0.3s ease, transform 0.3s ease;
             animation: fadeIn 1s ease-in-out;
+            position: relative;
+            overflow: hidden;
         }
         section:hover {
             background-color: #f0f0f0;
             transform: translateY(-5px);
+        }
+        section::before, section::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(76, 175, 80, 0.5), rgba(33, 150, 243, 0.5));
+            animation: gradientMove 5s ease infinite;
+        }
+        section::before {
+            left: 0;
+        }
+        section::after {
+            right: 0;
         }
         section h2 {
             font-family: 'Montserrat', sans-serif;
@@ -110,6 +158,23 @@
             margin-bottom: 20px;
             border-bottom: 2px solid #4CAF50;
             padding-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+            transition: color 0.3s ease;
+        }
+        section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+        }
+        section h2:hover {
+            color: #4CAF50;
         }
         section p, section ul {
             margin: 10px 0;
@@ -137,8 +202,10 @@
         .contact-info a {
             color: #007BFF;
             text-decoration: none;
+            transition: color 0.3s ease;
         }
         .contact-info a:hover {
+            color: #4CAF50;
             text-decoration: underline;
         }
         .icons {
@@ -150,10 +217,11 @@
             margin: 0 10px;
             font-size: 1.5em;
             color: #4CAF50;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
         .icons i:hover {
             transform: scale(1.2);
+            color: #007BFF;
         }
         footer {
             text-align: center;
@@ -161,6 +229,8 @@
             background-color: #333;
             color: #fff;
             border-radius: 0 0 10px 10px;
+            border: 3px solid transparent;
+            animation: ledBorder 5s linear infinite;
         }
         footer p {
             margin: 0;
@@ -196,6 +266,8 @@
             width: 50%;
             border-radius: 6px;
             animation: sectionFade 1s ease-in-out;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .timeline-item::after {
             content: '';
@@ -218,6 +290,10 @@
         .timeline-item.left {
             left: 0;
         }
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
         .timeline-item-content {
             padding: 20px 30px;
             background-color: #f4f4f9;
@@ -227,6 +303,19 @@
         .timeline-item-content h3 {
             margin: 0;
             font-size: 1.2em;
+            position: relative;
+            padding-left: 20px;
+        }
+        .timeline-item-content h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: #4CAF50;
+            border-radius: 50%;
         }
         .timeline-item-content p {
             margin: 5px 0 0;
@@ -238,7 +327,7 @@
             width: 10%;
             background: linear-gradient(45deg, rgba(76, 175, 80, 0.5), rgba(33, 150, 243, 0.5));
             background-size: 200% 200%;
-            animation: gradientMove 5s ease infinite;
+            animation: gradientMove 5s ease infinite, rgbLoop 10s ease infinite;
             z-index: 0;
         }
         .gradient-left {
@@ -247,13 +336,128 @@
         .gradient-right {
             right: 0;
         }
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+        .scroll-top:hover {
+            background-color: #45a049;
+        }
+        .scroll-top i {
+            font-size: 1.5em;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .gallery img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin: 10px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .custom-audio {
+            display: block;
+            width: 150px;
+            height: 30px;
+            margin: 20px auto;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #4CAF50, #33A6B8);
+            padding: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
         audio {
-            display: none;
+            width: 100%;
+            border-radius: 5px;
+            background: #fff;
+        }
+        .comments-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .comments-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .comments-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+        }
+        .comment-box {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .comment-box textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+        .comment-box button {
+            align-self: flex-end;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .comment-box button:hover {
+            background-color: #45a049;
+        }
+        .comments-list {
+            list-style: none;
+            padding: 0;
+        }
+        .comment-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f4f4f9;
+            border: 1px solid #ddd;
+        }
+        .comment-item p {
+            margin: 0;
+        }
+        .comment-item .comment-author {
+            font-weight: bold;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -272,7 +476,9 @@
         <a href="#languages">Idiomas</a>
         <a href="#training">Capacitación</a>
         <a href="#licenses">Licencias</a>
+        <a href="#gallery">Galería</a>
         <a href="#contact">Contacto</a>
+        <a href="#comments">Comentarios</a>
     </nav>
     <div class="container">
         <section id="profile">
@@ -358,16 +564,15 @@
             <div class="languages">
                 <ul>
                     <li>Inglés: Nivel medio</li>
-                    <li>Español : Nativo</li>
                 </ul>
             </div>
         </section>
         <section id="training">
-            <h2>Capacitaciones</h2>
+            <h2>Capacitación</h2>
             <div class="training">
                 <ul>
                     <li>Actualmente capacitándome en la gestión de proyectos IBM</li>
-                    <li>R Basic, HarvardX</li>
+                    <li>R</li>
                     <li>Marketing Estratégico</li>
                 </ul>
             </div>
@@ -380,6 +585,24 @@
                 </ul>
             </div>
         </section>
+        <section id="gallery">
+            <h2>Galería</h2>
+            <div class="gallery">
+                <img src="Screenshot_44.png" alt="Image 1">
+                <img src="Screenshot_45.png" alt="Image 2">
+                <img src="Screenshot_47.png" alt="Image 3">
+                <img src="Screenshot_46.png" alt="Image 4">
+                <img src="Screenshot_43.png" alt="Image 5">
+            </div>
+        </section>
+        <section id="comments" class="comments-section">
+            <h2>Comentarios</h2>
+            <div class="comment-box">
+                <textarea id="comment-input" placeholder="Escribe tu comentario..."></textarea>
+                <button onclick="addComment()">Enviar</button>
+            </div>
+            <ul id="comments-list" class="comments-list"></ul>
+        </section>
         <div class="contact-info" id="contact">
             <h2>Contacto</h2>
             <p><i class="fas fa-phone"></i> +569 3450 7331</p>
@@ -391,13 +614,38 @@
         <p>&copy; 2024 Mario Martínez Gómez. Todos los derechos reservados.</p>
         <p>Diseñado por Mario Martínez Gómez</p>
     </footer>
-    <audio controls>
-        <source src="forest-musica.mp3" type="audio/mpeg">
-        <source src="forest-musica.ogg" type="audio/ogg">
-        Tu navegador no soporta la reproducción de audio.
-    </audio>
+    <div class="scroll-top" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    <div class="custom-audio">
+        <audio id="background-audio" controls autoplay loop>
+            <source src="forest-musica.mp3" type="audio/mpeg">
+            <source src="forest-musica.ogg" type="audio/ogg">
+            Tu navegador no soporta la reproducción de audio.
+        </audio>
+    </div>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        window.onload = function() {
+            var audio = document.getElementById('background-audio');
+            audio.volume = 0.25;
+            audio.play();
+        }
+
+        function addComment() {
+            const commentInput = document.getElementById('comment-input');
+            const commentText = commentInput.value.trim();
+            if (commentText) {
+                const commentList = document.getElementById('comments-list');
+                const commentItem = document.createElement('li');
+                commentItem.classList.add('comment-item');
+                commentItem.innerHTML = `<p class="comment-author">Usuario Anónimo:</p><p>${commentText}</p>`;
+                commentList.appendChild(commentItem);
+                commentInput.value = '';
+            }
+        }
+    </script>
 </body>
 </html>
-
-
-
